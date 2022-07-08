@@ -1,6 +1,8 @@
 import keypirinha
 import keypirinha_util
 import shutil
+import os
+import time
 
 class Adb(keypirinha.Plugin):
     def __init__(self):
@@ -32,13 +34,24 @@ class Adb(keypirinha.Plugin):
                 self.item_creator.press_volume_down_button(),
                 self.item_creator.press_menu_button(),
                 self.item_creator.press_back_button(),
-                self.item_creator.input_text_menu()
+                self.item_creator.input_text_menu(),
+                self.item_creator.screencap(),
             ]
             self.set_suggestions(suggestions)
 
     def on_execute(self, item, action):
         if item.target() == "action_stream":
             keypirinha_util.shell_execute(thing="scrcpy", show=0)
+        elif item.target() == "action_screencap":
+            desktop_path = os.path.join(os.path.expandvars("%USERPROFILE%"),"Desktop")
+            screencap_path = "/sdcard/screencap.png"
+
+            cmd_screencap = f"adb shell screencap -p {screencap_path}".split()
+            cmd_pull = f"adb pull {screencap_path} {desktop_path}".split()
+
+            keypirinha_util.shell_execute(thing=cmd_screencap[0], args=cmd_screencap[1:], show=0)
+            time.sleep(0.5)
+            keypirinha_util.shell_execute(thing=cmd_pull[0], args=cmd_pull[1:], show=0)
         else:
            cmd = item.short_desc().split()
            keypirinha_util.shell_execute(thing=cmd[0], args=cmd[1:], show=0)
@@ -151,4 +164,16 @@ class ItemCreator:
             target="action_input_text",
             args_hint=keypirinha.ItemArgsHint.FORBIDDEN,
             hit_hint=keypirinha.ItemHitHint.IGNORE,
+        )
+
+    def screencap(self):
+        desktop_path = os.path.join(os.path.expandvars("%USERPROFILE%"),"Desktop")
+        screencap_path = "/sdcard/screencap.png"
+        return self.plugin.create_item(
+            category=keypirinha.ItemCategory.CMDLINE,
+            label="Take a screencap",
+            short_desc=f"adb shell screencap -p {screencap_path} && adb pull {screencap_path} {desktop_path}",
+            target="action_screencap",
+            args_hint=keypirinha.ItemArgsHint.FORBIDDEN,
+            hit_hint=keypirinha.ItemHitHint.IGNORE
         )
