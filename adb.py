@@ -6,7 +6,7 @@ class Adb(keypirinha.Plugin):
         self.item_creator = ItemCreator(self)
 
     def on_start(self):
-        self.set_default_icon(self.load_icon("res://{}/clock.ico".format(self.package_full_name())))
+        self.set_default_icon(self.load_icon("res://{}/adb.ico".format(self.package_full_name())))
 
     def on_events(self, flags):
         if flags & keypirinha.Events.PACKCONFIG:
