@@ -45,17 +45,18 @@ class ItemCreator:
     	return self.plugin.create_item(
             category=keypirinha.ItemCategory.KEYWORD,
             label="Android Debug Bridge Snippets",
-            short_desc="Using: " + path,
+            short_desc="Using ADB: " + (path or "could not find adb on PATH!"),
             target="adb",
             args_hint=keypirinha.ItemArgsHint.REQUIRED,
             hit_hint=keypirinha.ItemHitHint.KEEPALL
         )
 
     def stream_screen(self):
-        return self.plugin.create_item(
+    	path = shutil.which("scrcpy")
+    	return self.plugin.create_item(
             category=keypirinha.ItemCategory.KEYWORD,
             label="Stream device screen",
-            short_desc="scrcpy",
+            short_desc="Using scrcpy: " + (path or "could not find scrcpy on PATH!"),
             target="stream",
             args_hint=keypirinha.ItemArgsHint.ACCEPTED,
             hit_hint=keypirinha.ItemHitHint.IGNORE,
