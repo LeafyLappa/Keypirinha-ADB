@@ -1,5 +1,6 @@
 import keypirinha
 import keypirinha_util
+import shutil
 
 class Adb(keypirinha.Plugin):
     def __init__(self):
@@ -40,10 +41,11 @@ class ItemCreator:
         self.plugin = plugin
 
     def adb(self):
-        return self.plugin.create_item(
+    	path = shutil.which("adb")
+    	return self.plugin.create_item(
             category=keypirinha.ItemCategory.KEYWORD,
             label="Android Debug Bridge Snippets",
-            short_desc="adb",
+            short_desc="Using: " + path,
             target="adb",
             args_hint=keypirinha.ItemArgsHint.REQUIRED,
             hit_hint=keypirinha.ItemHitHint.KEEPALL
