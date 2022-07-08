@@ -42,10 +42,11 @@ class ItemCreator:
 
     def adb(self):
     	path = shutil.which("adb")
+    	description = f"Using ADB: {path}" if path is not None else "Warning: could not find adb on PATH!" 
     	return self.plugin.create_item(
             category=keypirinha.ItemCategory.KEYWORD,
             label="Android Debug Bridge Snippets",
-            short_desc="Using ADB: " + (path or "could not find adb on PATH!"),
+            short_desc=description,
             target="adb",
             args_hint=keypirinha.ItemArgsHint.REQUIRED,
             hit_hint=keypirinha.ItemHitHint.KEEPALL
@@ -53,10 +54,11 @@ class ItemCreator:
 
     def stream_screen(self):
     	path = shutil.which("scrcpy")
+    	description = f"Using scrcpy: {path}" if path is not None else "Warning: could not find scrcpy on PATH!" 
     	return self.plugin.create_item(
-            category=keypirinha.ItemCategory.KEYWORD,
+            category=keypirinha.ItemCategory.CMDLINE,
             label="Stream device screen",
-            short_desc="Using scrcpy: " + (path or "could not find scrcpy on PATH!"),
+            short_desc=description,
             target="stream",
             args_hint=keypirinha.ItemArgsHint.ACCEPTED,
             hit_hint=keypirinha.ItemHitHint.IGNORE,
@@ -65,7 +67,7 @@ class ItemCreator:
 
     def press_power_button(self):
         return self.plugin.create_item(
-            category=keypirinha.ItemCategory.KEYWORD,
+            category=keypirinha.ItemCategory.CMDLINE,
             label="Emulate power button",
             short_desc="adb shell input keyevent 26",
             target="power",
@@ -76,7 +78,7 @@ class ItemCreator:
 
     def press_home_button(self):
         return self.plugin.create_item(
-            category=keypirinha.ItemCategory.KEYWORD,
+            category=keypirinha.ItemCategory.CMDLINE,
             label="Emulate home button",
             short_desc="adb shell input keyevent 3",
             target="home",
@@ -87,7 +89,7 @@ class ItemCreator:
 
     def press_volume_up_button(self):
         return self.plugin.create_item(
-            category=keypirinha.ItemCategory.KEYWORD,
+            category=keypirinha.ItemCategory.CMDLINE,
             label="Emulate volume up button",
             short_desc="adb shell input keyevent 24",
             target="volume_up",
@@ -98,7 +100,7 @@ class ItemCreator:
 
     def press_volume_down_button(self):
         return self.plugin.create_item(
-            category=keypirinha.ItemCategory.KEYWORD,
+            category=keypirinha.ItemCategory.CMDLINE,
             label="Emulate volume down button",
             short_desc="adb shell input keyevent 25",
             target="volume_down",
@@ -109,7 +111,7 @@ class ItemCreator:
 
     def press_menu_button(self):
         return self.plugin.create_item(
-            category=keypirinha.ItemCategory.KEYWORD,
+            category=keypirinha.ItemCategory.CMDLINE,
             label="Emulate menu button",
             short_desc="adb shell input keyevent 1",
             target="menu",
@@ -120,7 +122,7 @@ class ItemCreator:
 
     def press_back_button(self):
         return self.plugin.create_item(
-            category=keypirinha.ItemCategory.KEYWORD,
+            category=keypirinha.ItemCategory.CMDLINE,
             label="Emulate back button",
             short_desc="adb shell input keyevent 4",
             target="back",
