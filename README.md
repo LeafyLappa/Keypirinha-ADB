@@ -14,3 +14,5 @@ Snippets:
 - Emulate volume down button
 - Emulate menu button
 - Emulate back button
+- Take a screencap
+- Emulate text input
