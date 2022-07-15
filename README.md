@@ -1,5 +1,7 @@
 # Keypirinha ADB
 
+<img src="screencap.png" width="600">
+
 This plugin extends [Keypirinha](http://keypirinha.com/) with several ADB snippets which Android developers may find useful.
 
 ## Usage
